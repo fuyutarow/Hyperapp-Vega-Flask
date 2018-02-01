@@ -8,6 +8,8 @@ from datetime import datetime
 import requests
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+plt.switch_backend('agg')
 
 from keras.models import load_model
 
@@ -80,6 +82,31 @@ class Master:
         y_pred = np.ravel(y_pred)
         return y_pred
 
+    def dump_fig(self, filename):
+        img_file = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', img_file)
+        pred = self.predict(img_file)
+        df = pd.DataFrame(pred)
+        df = df.T
+        df.columns = [
+            'red_finch',
+            'red_parrot',
+            'white_finch',
+            'white_parrot',
+            'yellow_finch',
+            'yellow_parrot',
+        ]
+        plt.style.use('ggplot')
+        plt.figure()
+        plt.bar(
+            range(1, 1 + df.size),
+            height=np.ravel(df.values).tolist(),
+            tick_label=df.columns.values.tolist())
+        timestamp = int(time.time())
+        savefile = f'uploads/demo.{timestamp}.png'
+        plt.savefig(savefile)
+        return savefile
+
     def vega(self, file):
         y_pred = self.predict(file)
 
@@ -135,10 +162,11 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/viz')
+@app.route('/viz/<filename>')
 @crossdomain(origin='http://localhost:1234')
-def viz():
-    return render_template('viz.html')
+def viz(filename):
+    save_file  = master.dump_fig(filename)
+    return render_template('viz.html', img=f'/uploads/{filename}', fig=f'/{save_file}' )
 
 
 @app.route('/upload', methods=['POST'])
@@ -152,7 +180,8 @@ def upload():
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(file_path)
     master.set_file(filename)
-    return redirect('http://localhost:1234/vega')
+    return redirect('/viz/' + filename)
+    #return redirect('http://localhost:1234/vega')
 
 
 @app.route('/uploads/<filename>')
@@ -178,7 +207,7 @@ def last_vega():
     print(img_file)
     res = {
         'vega': master.vega(img_file),
-        'path': img_file,
+        'filename': filename,
     }
     return make_response(jsonify(res))
 
