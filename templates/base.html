@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/npm/vega@3.0.10/build/vega.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@2.1.2/build/vega-lite.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.0.0/build/vega-embed.js"></script>
+
+  <style media="screen">
+    .vega-actions a {
+        margin-right: 5px;
+    }
+  </style>
+  <title>File</title>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+        {% block content %}
+        {% endblock %}
+    </div>
+  </div>
+</body>
+</html>
