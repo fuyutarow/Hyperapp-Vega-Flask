@@ -4,9 +4,8 @@
     <title>Vega Lite Bar Chart</title>
     <meta charset="utf-8">
 
-    <script src="https://cdn.jsdelivr.net/npm/vega@3.0.10/build/vega.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@2.1.2/build/vega-lite.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.0.0/build/vega-embed.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+          rel="stylesheet">
 
     <style media="screen">
 			/* Add space between Vega-Embed links  */
@@ -22,6 +21,10 @@
 				-ms-flex-wrap: wrap;
 				-webkit-flex-wrap: wrap;
 				flex-wrap: wrap;
+				-webkit-box-align: center;
+				-ms-flex-align: center;
+				-webkit-align-items: center;
+				align-items: center;
 			}
 
 			.col01 {
@@ -32,13 +35,17 @@
 </head>
 
 <body>
-  <a href='/'><h1>Cami & co.</h1></a>
-    <!-- Container for the visualization -->
+  <dev class='container'>
+    <dev class='header'>
+      <a href='/'><h1>Cami & co.</h1></a>
+      <!-- Container for the visualization -->
+    </dev>
 
     <dev class='wrap01'>
-      <img class='col01' src={{ filepath }} />
-      <img class='col01' src='/uploads/demo.png' />
+      <img class='col01' width=300 src={{ img }} />
+      <img class='col01' src={{ fig }} />
     </dev>
+  </dev>
 
 </body>
 

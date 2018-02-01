@@ -105,7 +105,7 @@ class Master:
         timestamp = int(time.time())
         savefile = f'uploads/demo.{timestamp}.png'
         plt.savefig(savefile)
-        return savefile
+        return savefile, pred
 
     def vega(self, file):
         y_pred = self.predict(file)
@@ -165,8 +165,17 @@ def index():
 @app.route('/viz/<filename>')
 @crossdomain(origin='http://localhost:1234')
 def viz(filename):
-    save_file  = master.dump_fig(filename)
-    return render_template('viz.html', img=f'/uploads/{filename}', fig=f'/{save_file}' )
+    save_file, pred  = master.dump_fig(filename)
+    i = np.argmax(pred)
+    i2l = {
+        0: 'red_finch',
+        1: 'red_parrot',
+        2: 'white_finch',
+        3: 'white_parrot',
+        4: 'yellow_finch',
+        5: 'yellow_parrot',
+    }
+    return render_template('viz.html', img=f'/uploads/{filename}', fig=f'/{save_file}',  label=i2l[i] )
 
 
 @app.route('/upload', methods=['POST'])

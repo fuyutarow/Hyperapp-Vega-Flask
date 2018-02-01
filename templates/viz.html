@@ -4,16 +4,7 @@
     <title>Vega Lite Bar Chart</title>
     <meta charset="utf-8">
 
-    <script src="https://cdn.jsdelivr.net/npm/vega@3.0.10/build/vega.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@2.1.2/build/vega-lite.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.0.0/build/vega-embed.js"></script>
-
     <style media="screen">
-			/* Add space between Vega-Embed links  */
-
-			.vega-actions a {
-					margin-right: 5px;
-			}
 			.wrap01 {
 				display: -webkit-box;
 				display: -ms-flexbox;
@@ -32,17 +23,40 @@
 				padding: 20px;
 			}
 
+      .judge {
+        font-size: 3em;
+
+      }
+
     </style>
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+          rel="stylesheet">
 </head>
 
 <body>
-  <a href='/'><h1>Cami & co.</h1></a>
-    <!-- Container for the visualization -->
+  <div class='container'>
+      <div class='header'>
+        <a href='/'><h1>Cami & co.</h1></a>
+        <!-- Container for the visualization -->
+      </div>
+      <div>
+      
+      <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" multiple="" name="file[]" class="span3" /><br />
+        <input type="submit" value="Upload"  class="span2">
+      </form>
+      </div>
 
-    <dev class='wrap01'>
+    <div class='wrap01'>
       <img class='col01' width=300 src={{ img }} />
       <img class='col01' src={{ fig }} />
-    </dev>
+    </div>
+    <div class='judge'>
+    これは{{label}}です．
+    </div>
+
+  </div>
 
 </body>
 
